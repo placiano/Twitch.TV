@@ -97,13 +97,13 @@ function showChannels(){
 
 function showStreamers(game){
 
-	defineScreen(name)
+	defineScreen(game)
 
-	name = name.replace(/\s/g,"+");
-	name = name.replace(/\:/g,"%3A");
+	game = game.replace(/\s/g,"+");
+	game = game.replace(/\:/g,"%3A");
 
 	$.ajax({
-		url: 'https://api.twitch.tv/kraken/streams?game=' + name + '&limit=100',
+		url: 'https://api.twitch.tv/kraken/streams?game=' + game + '&limit=100',
 		type: 'GET',
 		data: {
 			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'

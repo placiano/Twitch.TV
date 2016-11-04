@@ -9,53 +9,45 @@
 <script src="content/twitch.js" charset="utf-8"></script>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-
 <script>
-	
-	(function() {
-		
-
+	$(document).ready(function(e) {
 		showGames();
-		
-		
-			//Click on "Games"
-			$(document).on("click", "#games", function(e) {
-				showGames();
-			});
-			
-			 // Click on "Channels"
-			$(document).on("click", "#channels", function(e) {
-				showChannels();
-			});
-			 
-			  // HIT ENTER IN THE SEARCH BOX
-			$(document).on("keypress", "#search", function(e){
-					if(e.keyCode === 13){
-						searchChannel($("#search").val());    
-					}
-				});
+	});
 
-			})();
+	//Click on "Games"
+	$(document).on("click", "#games", function(e) {
+		showGames();
+	});
+
+	// Click on "Channels"
+	$(document).on("click", "#channels", function(e) {
+		showChannels();
+	});
+	 
+	// HIT ENTER IN THE SEARCH BOX
+	$(document).on("keypress", "#search", function(e){
+		if(e.keyCode === 13){
+			searchChannel($("#search").val());    
+		}
+	});
 	
-			// CLICK A STREAM :: WHEN CKICK A STREAM IMAGE -> SHOW STREAM
-			$(document).on("click", "#twitch-widget-streamlist a", function(e) {
-				e.preventDefault();
-				var id = $(this).attr("id");
-				var name = $(this).attr("name");
-			  
-				window.location = "stream.html#" + name;
-
-			});
-		 
+	// CLICK A STREAM :: WHEN CKICK A STREAM IMAGE -> SHOW STREAM
+	$(document).on("click", "#twitch-widget-streamlist a", function(e) {
+		e.preventDefault();
+		var id = $(this).attr("id");
+		var name = $(this).attr("name");
+	  
+		window.location = "stream.html#" + name;
+	});
 			
-		  // CLICK A GAME :: WHEN CKICK A GAME IMAGE -> SHOW LIST OF STREAMERS
-		  $(document).on("click", "#twitch-widget-gamelist div", function(e) {
-			  e.preventDefault();
-			  var id = $(this).attr("id");
-			  var name = $(this).attr("name");
-			  
-			  showStreamers(name);
-			});
+	// CLICK A GAME :: WHEN CKICK A GAME IMAGE -> SHOW LIST OF STREAMERS
+	$(document).on("click", "#twitch-widget-gamelist div", function(e) {
+		e.preventDefault();
+		var id = $(this).attr("id");
+		var name = $(this).attr("name");
+
+		showStreamers(name);
+	});
 </script>
 	
 	

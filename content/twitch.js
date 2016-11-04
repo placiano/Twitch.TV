@@ -15,6 +15,9 @@ function searchChannel(search) {
 	  $.ajax({
           url: 'https://api.twitch.tv/kraken/search/streams?limit=100&q=' + search,
           type: 'GET',
+          data: {
+              client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
+          },
           contentType: 'application/json',
           dataType: 'jsonp',
           success: function(data) {
@@ -41,6 +44,9 @@ function showGames(){
 	 $.ajax({
 	          url: 'https://api.twitch.tv/kraken/games/top?limit=100&offset=0',
 	          type: 'GET',
+		  data: {
+			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
+		  },
 	          contentType: 'application/json',
 	          dataType: 'jsonp',
 	          success: function(data) {
@@ -67,6 +73,9 @@ function showChannels(){
 	$.ajax({
 		url: 'https://api.twitch.tv/kraken/streams?limit=100',
 		type: 'GET',
+                data: {
+                    client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
+                },
 		contentType: 'application/json',
 		dataType: 'jsonp',
 		success: function(data) {

@@ -65,6 +65,9 @@
 			  $.ajax({
 		            url: 'https://api.twitch.tv/kraken/streams?game=' + name + '&limit=100',
 		            type: 'GET',
+		            data: {
+				client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
+			    },
 		            contentType: 'application/json',
 		            dataType: 'jsonp',
 		            success: function(data) {

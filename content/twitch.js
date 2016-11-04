@@ -94,3 +94,29 @@ function showChannels(){
 		}
 	});
 }
+
+function showStreamers(game){
+
+	defineScreen(name)
+
+	name = name.replace(/\s/g,"+");
+	name = name.replace(/\:/g,"%3A");
+
+	$.ajax({
+		url: 'https://api.twitch.tv/kraken/streams?game=' + name + '&limit=100',
+		type: 'GET',
+		data: {
+			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
+		},
+	contentType: 'application/json',
+	dataType: 'jsonp',
+	success: function(data) {
+
+		$.each(data.streams, function(index, value){
+
+		$("#twitch-widget-streamlist").append("<div class='stream_img'><a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a><br><b>" + value.channel.status + "</b><br/><div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div></div>");
+
+		})
+		}
+	});
+}

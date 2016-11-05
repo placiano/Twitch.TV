@@ -86,6 +86,12 @@ a:visited{
 	background: #101014;
 	border-left: 6px solid #6441a5;
 }
+.left_panel_menu_list a:focus {
+	background: #101014;
+	border-left: 6px solid #6441a5;
+	outline: none;
+}
+
 
 #game-list-header {
 	float: left;
@@ -131,15 +137,18 @@ input[type="search"] {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	
-	border-radius: 5px;
+
 	padding: 5px;
 	border: 2px solid #FFF;
 }
 
+
 .game_item:hover {
-	
     border: 2px solid #7550ba;
+}
+
+.game_item:focus {
+    outline: 2px solid #7550ba;
 }
 
 

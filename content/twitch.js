@@ -1,3 +1,4 @@
+var default_limit = 20;
 
 function defineScreen($title){
 	
@@ -37,33 +38,42 @@ function searchChannel(search) {
 		});
 }
 
+var rcu_navigable_items = {};
+var rcu_idx = -1;
+
 function showGames(){
 	
 	defineScreen("All Games")
 	
 	 $.ajax({
-	          url: 'https://api.twitch.tv/kraken/games/top?limit=100&offset=0',
+	          url: 'https://api.twitch.tv/kraken/games/top?limit=' + default_limit +'&offset=0',
 	          type: 'GET',
 		  data: {
 			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
 		  },
+		
+		  error: function(a, b, c) {
+			console.log(a, b, c);
+		  }, 
 	          contentType: 'application/json',
 	          dataType: 'jsonp',
 	          success: function(data) {
-	          	
+
 	          	$.each(data.top, function(index, value){
-	          		
 	          		game_id = value.game._id;
 	          		game_name = value.game.name;
 	          		game_image = value.game.box.medium;
 	          		game_viewers = value.viewers;
 	          		
-	          		$("#twitch-widget-gamelist").append("<div class='game_item' name='" + game_name + "' id='" + game_id + "'><img src='" + game_image + "'><br><b>" + game_name + "</b><br/><div class='game_status'>" + game_viewers + " viewers</div></div>");
+	          		$("#twitch-widget-gamelist").append("<div class='game_item' data-rcu-navigable='true' name='" + game_name + "' id='" + game_id + "' tabindex='0'><img src='" + game_image + "'><br><b>" + game_name + "</b><br/><div class='game_status'>" + game_viewers + " viewers</div></div>");
 	          	
 	          	})
-	
+			rcu_idx = 3;
+			rcu_navigable_items = $("a[data-rcu-navigable='true'], div[data-rcu-navigable='true'], input[data-rcu-navigable='true']");
+			rcu_navigable_items.eq(rcu_idx).focus();
 	          }
-	}); 
+	});
+			
 }
 
 function showChannels(){
@@ -89,8 +99,9 @@ function showChannels(){
 				channel_viewers = value.viewers
 				channel_status = value.channel.status
 				
-				$("#twitch-widget-streamlist").append("<div class='stream_img'><a href='#' name='" + channel_name + "' id='" + channel_id + "'><img src='" + channel_image + "'></a><br><b>" + channel_display_name + " (" + channel_viewers + " viewers)</b><br/><div id='channel_status'>" + channel_status + "</div></div>");
+				$("#twitch-widget-streamlist").append("<div class='stream_img'><a href='#' name='" + channel_name + "' id='" + channel_id + "' data-rcu-navigable='true' tabindex='0'><img src='" + channel_image + "'></a><br><b>" + channel_display_name + " (" + channel_viewers + " viewers)</b><br/><div id='channel_status'>" + channel_status + "</div></div>");
 			})
+		rcu_navigable_items = $("a[data-rcu-navigable='true'], div[data-rcu-navigable='true'], input[data-rcu-navigable='true']");
 		}
 	});
 }
@@ -114,9 +125,12 @@ function showStreamers(game){
 
 		$.each(data.streams, function(index, value){
 
-		$("#twitch-widget-streamlist").append("<div class='stream_img'><a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a><br><b>" + value.channel.status + "</b><br/><div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div></div>");
+		$("#twitch-widget-streamlist").append("<div class='stream_img' data-rcu-navigable='true' tabindex='0'><a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a><br><b>" + value.channel.status + "</b><br/><div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div></div>");
 
 		})
-		}
+	rcu_idx = 3;
+	rcu_navigable_items = $("a[data-rcu-navigable='true'], div[data-rcu-navigable='true'], input[data-rcu-navigable='true']");
+	rcu_navigable_items.eq(rcu_idx).focus();
+	}
 	});
 }

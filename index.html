@@ -20,7 +20,7 @@
 		if (rcu_navigable_items.length == 0) {
 			return;
 		}
-
+/*
 		switch(e.keyCode) {
 		case 39:
 			if (rcu_idx < rcu_navigable_items.length) {
@@ -41,6 +41,29 @@
 		case 40:
 			break;
 		case 38:
+			break;
+		}
+		*/
+				switch(e.keyCode) {
+		case 39:
+			rcuNavigate("right");
+			rcuShowFocus();
+			break;
+		case 37:
+			rcuNavigate("left");
+			rcuShowFocus();
+
+			//$(this).parent().css( "background-color", "green" );
+			//$(this).prev().focus();
+			//$(this).prev().css( "background-color", "green" );
+			break;
+		case 40:
+			rcuNavigate("down");
+			rcuShowFocus();
+			break;
+		case 38:
+			rcuNavigate("up");
+			rcuShowFocus();
 			break;
 		}
 	});
@@ -91,7 +114,7 @@
 	// HIT ENTER IN THE SEARCH BOX
 	$(document).on("keypress", "#search", function(e){
 		if(e.keyCode === 13){
-			searchChannel($("#search").val());    
+			searchChannel($("#search").val());
 		}
 	});
 	

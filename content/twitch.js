@@ -38,8 +38,165 @@ function searchChannel(search) {
 		});
 }
 
+var rcuMenuItems = {
+	idx: -1,
+	count: 0,
+	items: {},
+	invalidate: function() {
+		this.idx = -1;
+		this.count = 0;
+		this.items.empty();
+	},
+	update: function() {
+		this.items = $("div.left_panel_menu > ul > li > a");
+		this.count = this.items.length;
+	},
+	navigate: function(direction) {
+		switch (direction) {
+		case "up":
+			if (this.idx > 0)
+				this.idx--;
+			break;
+		case "down":
+			if (this.idx < this.count)
+				this.idx++;
+			break;
+		case "right":
+		case "left":
+			break;
+		}
+		return this.idx;
+	},
+	focus: function(idx) {
+		this.items.eq(idx).focus();
+	}
+};
+
+var rcuGameItems = {
+	idx: 0,
+	count: 0,
+	nr_items_in_row: 0,
+	items: {},
+	invalidate: function() {
+		this.idx = -1;
+		this.count = 0;
+		this.items.empty();
+	},
+	update: function() {
+		this.items = $("div.right_panel > div > div");
+		this.count = this.items.length;
+	},
+	calc_items_in_row: function() {
+		var x = $("#twitch-widget-gamelist");
+		var y = $("#twitch-widget-gamelist div").first();
+		this.nr_items_in_row = x.width() / y.outerWidth(true);
+		this.nr_items_in_row = Math.floor(this.nr_items_in_row);
+	},
+	navigate: function(direction) {
+		this.calc_items_in_row();
+		switch (direction) {
+		case "right":
+			if ((this.idx + 1 % this.nr_items_in_row) > 0)
+				this.idx++;
+			break;
+		case "left":
+			if ((this.idx % this.nr_items_in_row + 1) > 0)
+				this.idx--;
+			break;
+		case "up":
+			if ((this.idx - this.nr_items_in_row) > 0)
+				this.idx = this.idx - this.nr_items_in_row;
+			break;
+		case "down":
+			if ((this.idx + this.nr_items_in_row) < this.count)
+				this.idx = this.idx + this.nr_items_in_row;
+			break;	
+		}
+		return this.idx;
+	},
+	focus: function(idx) {
+		this.items.eq(idx).focus();
+	}
+};
+
 var rcu_navigable_items = {};
 var rcu_idx = -1;
+
+function rcuItemsUpdate()
+{
+	rcu_navigable_items = $("a[data-rcu-navigable='true'], div[data-rcu-navigable='true'], input[data-rcu-navigable='true']");
+	rcu_idx = -1;
+}
+
+function rcuInMenu()
+{
+	return rcu_idx >= 0 && rcu_idx <= 2;
+}
+
+function rcuInGames()
+{
+	return rcu_idx > 2 && rcu_idx <= 100;
+}
+
+function rcuShowFocus()
+{
+	rcu_navigable_items.eq(rcu_idx).focus();
+}
+
+function rcuNavigate(direction)
+{
+	if (direction == "right" && rcuInMenu()) {
+		/* Go to the Games immediately. */
+		rcu_idx = 3;
+		rcu_navigable_items.eq(rcu_idx).focus();
+	} else if (direction == "left" && (rcu_idx + 3) % 6 == 0) {
+		rcu_idx = 2;
+		rcu_navigable_items.eq(rcu_idx).focus();
+	} else if (rcuInMenu()) {
+		rcuNavigateInMenu(direction);
+		rcuMenuItems.navigate(direction);
+	} else {
+		rcuNavigateInGames(direction);
+		rcuGameItems.navigate(direction);
+	}
+
+	return;
+}
+
+function rcuNavigateInMenu(direction)
+{
+	switch (direction) {
+	case "up":
+		if (rcu_idx > 0)
+			rcu_idx--;
+		break;
+	case "down":
+		if (rcu_idx < 2)
+			rcu_idx++;
+		break;
+	case "right":
+	case "left":
+		break;
+	}
+}
+
+
+function rcuNavigateInGames(direction) {
+	switch (direction) {
+	case "right":
+		rcu_idx++;
+		break;
+	case "left":
+		rcu_idx--;
+		break;
+	case "up":
+		rcu_idx = rcu_idx - 6;
+		break;
+	case "down":
+		rcu_idx = rcu_idx + 6;
+		break;	
+	}
+}
 
 function showGames(){
 	
@@ -71,6 +228,8 @@ function showGames(){
 			rcu_idx = 3;
 			rcu_navigable_items = $("a[data-rcu-navigable='true'], div[data-rcu-navigable='true'], input[data-rcu-navigable='true']");
 			rcu_navigable_items.eq(rcu_idx).focus();
+			rcuMenuItems.update();
+			rcuGameItems.update();
 	          }
 	});
 			

@@ -4,7 +4,6 @@ var rcuMenuItems = {
 	idx: 0,
 	count: 0,
 	items: {},
-
 	update: function() {
 		this.items = $("div.left_panel_menu > ul > li > a,\
 				div.left_panel > div > input");
@@ -45,7 +44,6 @@ var rcuGameItems = {
 	in_charge: 0,
 	idx: 0,
 	count: 0,
-	nr_rows : 0,
 	nr_items_in_row: 0,
 	items: {},
 	update: function() {
@@ -55,38 +53,25 @@ var rcuGameItems = {
 		this.in_charge = 0;
 	},
 	calc_items_in_row: function(which_widget) {
-		var x = this.items.first().parent().width();
-		var y = this.items.first().outerWidth(true);
+		var first_item = this.items.first();
+		var x = first_item.parent().width();
+		var y = first_item.outerWidth(true);
 
-		var h = this.items.first().parent().height();
-		var h2 = this.items.first().outerHeight(true);
-
-		var h3 = this.items.first().parent();
-		var h4 = this.items.first();
-		
-		this.nr_rows = Math.floor(h / h2);
 		this.nr_items_in_row = Math.floor(x / y);
 	},
-	is_leftmost: function(idx) {
-		return Boolean(!idx || 
-				!(idx % this.nr_items_in_row))
-	},
 	navigate: function(direction) {
-
 		this.calc_items_in_row();
 
 		var leftmost = false, rightmost = false;
 
 		/* Possible situation when there is one item
 		* per row. */
-		if (!this.idx) {
-			leftmost = true;
-			if (this.nr_items_in_row == 1)
-				rightmost = leftmost;
+		if (!this.idx && (this.nr_items_in_row == 1)) {
+			leftmost = rightmost = true;
 		} else
 			leftmost = (this.idx % this.nr_items_in_row) == 0;
 
-		/* It is not the first position in a single columnt layout.
+		/* It is not the first position in a single column layout.
 		* Maybe it is the rightmost position? */
 		if (!leftmost)
 			if (this.idx == this.count - 1)

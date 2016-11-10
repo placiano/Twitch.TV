@@ -1,4 +1,4 @@
-var default_limit = 20;
+var default_limit = 100;
 
 function defineScreen($title){
 

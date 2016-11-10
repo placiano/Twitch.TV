@@ -6,27 +6,25 @@ body {
 	background-color: #fff;
 	font-family: "Helvetica Neue", sans-serif;
 	line-height: 1.5;
-	
 }
 
-a{
+a {
 	color: #fff;
 	text-decoration: none;
 }
 
-a:visited{
+a:visited {
 	color: none;
 	text-decoration: none;
 }
 
 .left_panel {
-	background: #32323e; float : left;
+	background: #32323e;
 	height: 100vh;
 	width: 15%;
 	color: #fff;
 	float: left;
 }
-
 
 .right_panel {
 	float: right;
@@ -37,9 +35,6 @@ a:visited{
 	overflow: scroll;
 	overflow-x: hidden;
 }
-
-
-
 
 .clear {
 	clear: both;
@@ -65,7 +60,6 @@ a:visited{
 .left_panel_menu .title {
 	margin: 25px 25px 0 35px;
 	font-size: 16px;
-	
 }
 
 .left_panel_menu_list {
@@ -79,7 +73,6 @@ a:visited{
 	display:block;
 	padding: 8px 0px 8px 40px;
 	border-left: 6px solid #32323e;
-	
 }
 
 .left_panel_menu_list a:hover {
@@ -91,7 +84,6 @@ a:visited{
 	border-left: 6px solid #6441a5;
 	outline: none;
 }
-
 
 #game-list-header {
 	float: left;
@@ -142,19 +134,16 @@ input[type="search"] {
 	border: 2px solid #FFF;
 }
 
-
 .game_item:hover {
-    border: 2px solid #7550ba;
+	border: 2px solid #7550ba;
 }
 
 .game_item:focus {
-    outline: 2px solid #7550ba;
+	outline: 2px solid #7550ba;
 }
 
-
 .game_status {
-	
-	font-size: 14px;
+	font-size: 18px;
 	color: #6B6B6B;
 }
 
@@ -166,7 +155,7 @@ input[type="search"] {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	
+
 	border-radius: 5px;
 	padding: 5px;
 	border: 2px solid #FFF;

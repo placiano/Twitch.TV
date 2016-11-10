@@ -1,32 +1,32 @@
-
 var rcuMenuItems = {
-	in_charge: 0,
 	idx: 0,
 	count: 0,
 	items: {},
 	update: function() {
+		/* This is a left menu. It is initialized once and
+		* does not get updated. */
+		if (this.count > 0)
+			return;
+
 		this.items = $("div.left_panel_menu > ul > li > a,\
 				div.left_panel > div > input");
 		this.count = this.items.length;
 		this.idx = 0;
-		this.in_charge = 0;
 	},
 	navigate: function(direction) {
-		var dropped_out = 0;
-
 		switch (direction) {
 		case "up":
 			if (this.idx > 0)
 				this.idx--;
 			break;
 		case "down":
-			if (this.idx < this.count)
+			if (this.idx < this.count - 1)
 				this.idx++;
 			break;
 		case "right":
-			/* Release */
+			/* A value that means that focus moved
+			* to the right. */
 			return -1;
-			break;
 		case "left":
 		case "none":
 		default:
@@ -36,12 +36,12 @@ var rcuMenuItems = {
 		return this.idx;
 	},
 	focus: function(idx) {
-		this.items.eq(idx).focus();
+		var i = idx ? idx : this.idx;
+		this.items.eq(i).focus();
 	}
 };
 
 var rcuGameItems = {
-	in_charge: 0,
 	idx: 0,
 	count: 0,
 	nr_items_in_row: 0,
@@ -50,35 +50,41 @@ var rcuGameItems = {
 		this.items = $("div.right_panel > div > div");
 		this.count = this.items.length;
 		this.idx = 0;
-		this.in_charge = 0;
 	},
-	calc_items_in_row: function(which_widget) {
+	calc_items_in_row: function() {
 		var first_item = this.items.first();
 		var x = first_item.parent().width();
 		var y = first_item.outerWidth(true);
 
 		this.nr_items_in_row = Math.floor(x / y);
 	},
+	curr_idx_leftmost: function() {
+		var leftmost = false;
+
+		if (!this.idx && (this.nr_items_in_row == 1))
+			leftmost = true;
+		else
+			leftmost = (this.idx % this.nr_items_in_row) == 0;
+
+		return leftmost;
+	},
+	curr_idx_rightmost: function() {
+		var rightmost = false;
+
+		if (!this.idx && (this.nr_items_in_row == 1))
+			rightmost = true;
+		else if (this.idx == this.count - 1)
+			rightmost = true;
+		else
+			rightmost = ((this.idx + 1) % this.nr_items_in_row) == 0;
+
+		return rightmost;
+	},
 	navigate: function(direction) {
 		this.calc_items_in_row();
 
-		var leftmost = false, rightmost = false;
-
-		/* Possible situation when there is one item
-		* per row. */
-		if (!this.idx && (this.nr_items_in_row == 1)) {
-			leftmost = rightmost = true;
-		} else
-			leftmost = (this.idx % this.nr_items_in_row) == 0;
-
-		/* It is not the first position in a single column layout.
-		* Maybe it is the rightmost position? */
-		if (!leftmost)
-			if (this.idx == this.count - 1)
-				rightmost = true;
-			else
-				rightmost = ((this.idx + 1) % this.nr_items_in_row) == 0;
-		
+		var leftmost = this.curr_idx_leftmost();
+		var rightmost = this.curr_idx_rightmost();
 
 		switch (direction) {
 		case "right":
@@ -91,7 +97,9 @@ var rcuGameItems = {
 			if (!leftmost)
 				this.idx--;
 			else
-				return -1;
+				/* A value that means that focus moved
+				* to the left. */
+				return -2;
 			break;
 		case "up":
 			if ((this.idx - this.nr_items_in_row) >= 0)
@@ -109,58 +117,46 @@ var rcuGameItems = {
 		return this.idx;
 	},
 	focus: function(idx) {
-		this.items.eq(idx).focus();
+		var i = idx ? idx : this.idx;
+		this.items.eq(i).focus();
 	}
 };
 
 var rcuNavigator = {
+	items: [rcuMenuItems, rcuGameItems],
+	in_charge_idx: -1,
 	update: function() {
-		if (rcuMenuItems.count == 0)
-			rcuMenuItems.update();
-		if (rcuGameItems.count >= 0)
-			rcuGameItems.update();
+		this.in_charge_idx = -1;
+		this.items.forEach(function(item) {
+			item.update();
+		});
+	},
+	first_move: function() {
+		return (this.in_charge_idx == -1);
 	},
 	navigate: function(direction) {
-
-		var firstMove = Boolean((rcuGameItems.in_charge == 0) &&
-					(rcuMenuItems.in_charge == 0));
-
-		if (firstMove) {
+		if (this.first_move()) {
 			if (direction == "right") {
 				/* Press Right for the first time. Focus first Games
 				* list item. */
-				rcuGameItems.in_charge = 1;
+				this.in_charge_idx = 1;
 			} else if (direction == "down") {
 				/* Pressed Down for the first time. Focus first Menu
 				* item. */
-				rcuMenuItems.in_charge = 1;
+				this.in_charge_idx = 0;
 			}
+			/* Do not actually go any direction, focus first item. */
 			direction = "none";
 		}
 
-		var n = {};
+		var item_in_charge = this.items[this.in_charge_idx];
+		var dropped_out = item_in_charge.navigate(direction);
 
-		if (rcuGameItems.in_charge == 1)
-			n = rcuGameItems;
-		else
-			n = rcuMenuItems;
+		if (dropped_out == -1)
+			item_in_charge = this.items[++this.in_charge_idx];
+		else if (dropped_out == -2)
+			item_in_charge = this.items[--this.in_charge_idx];
 
-		var dropped_out = Boolean(n.navigate(direction) < 0);
-
-		if (!dropped_out) {
-			n.focus(n.navigate("none"));
-			return;
-		}
-
-
-		var t = rcuGameItems.in_charge;
-		rcuGameItems.in_charge = rcuMenuItems.in_charge;
-		rcuMenuItems.in_charge = t;
-		if (rcuGameItems.in_charge == 1)
-			n = rcuGameItems;
-		else
-			n = rcuMenuItems;
-
-		n.focus(n.navigate("none"));
+		item_in_charge.focus();
 	}
 }

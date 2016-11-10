@@ -79,6 +79,7 @@ a:visited {
 	background: #101014;
 	border-left: 6px solid #6441a5;
 }
+
 .left_panel_menu_list a:focus {
 	background: #101014;
 	border-left: 6px solid #6441a5;
@@ -106,44 +107,51 @@ input[type="search"] {
 *	RIGHT SIDE
 */
 .twitch-widget-gamelist {
-	overflow-y: scroll;
+
 }
 
 .twitch-widget-gamelist>a {
-	margin: 10px 0 0 15px;
+
 }
 
 .twitch-widget-streamlist {
-	overflow-y: scroll;
+
 }
 
 .twitch-widget-streamlist>a {
-	margin: 10px 0 0 15px;
+
 }
 
 .game_item {
 	max-width: 136px;
 	height: 238px;
 	float: left;
-	margin: 10px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 
 	padding: 5px;
-	border: 2px solid #FFF;
+	border: 5px solid #FFF;
+}
+
+.game_item > img {
+	//max-width: 136px;
+	//max-height: 180px;
+	//width: auto;
+	//height: auto;
 }
 
 .game_item:hover {
-	border: 2px solid #7550ba;
+	border: 5px solid #7550ba;
 }
 
 .game_item:focus {
-	outline: 2px solid #7550ba;
+	border: 5px solid #7550ba;
+	outline: none;
 }
 
 .game_status {
-	font-size: 18px;
+	font-size: 14px;
 	color: #6B6B6B;
 }
 
@@ -151,26 +159,26 @@ input[type="search"] {
 	max-width: 320px;
 	height: 232px;
 	float: left;
-	margin: 10px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 
-	border-radius: 5px;
 	padding: 5px;
-	border: 2px solid #FFF;
+	border: 5px solid #FFF;
 }
 
 .stream_img:hover {
-	border: 2px solid #7550ba;
+	border: 5px solid #7550ba;
 }
 
+.stream_img:focus {
+	border: 5px solid #7550ba;
+	outline: none;
+}
 
 /*
 *	STREAM SIDE
 */
-
-
 .left_panel_stream {
 	background: #32323e;
 	height: 100vh;

@@ -119,16 +119,23 @@ function showStreamers(game){
 		data: {
 			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
 		},
-	contentType: 'application/json',
-	dataType: 'jsonp',
-	success: function(data) {
+		beforeSend: function(e, d) {
+			$("#twitch-loader").show();
+		},
+		error: function(e) {
+			$("#twitch-error").append("<h2>" + e.status + ": " + e.statusText + "</h2>");
+			$("#twitch-error").show();
+			$("#twitch-loader").hide();
+		},
+		contentType: 'application/json',
+		dataType: 'jsonp',
+		success: function(data) {
 
-		$.each(data.streams, function(index, value){
-
-		$("#twitch-widget-streamlist").append("<div class='stream_img' tabindex='-1'><a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a><br><b>" + value.channel.status + "</b><br/><div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div></div>");
-
-		})
-		rcuNavigator.update();
-	}
+			$.each(data.streams, function(index, value){
+				$("#twitch-widget-streamlist").append("<div class='stream_img' tabindex='-1'><a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a><br><b>" + value.channel.status + "</b><br/><div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div></div>");
+			});
+			rcuNavigator.update();
+			$("#twitch-loader").hide();
+		}
 	});
 }

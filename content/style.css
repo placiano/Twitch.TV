@@ -28,7 +28,7 @@ a:visited {
 
 .right_panel {
 	float: right;
-	max-height: 100vh;
+	height: 100vh;
 	width: 85%;
 	background: #fff;
 	color: #000;
@@ -218,4 +218,20 @@ input[type="search"] {
 #img_hide{
 	width: 32px;
 	height: 32px;
+}
+
+.twitch-loader {
+	text-align: center;
+	display: none;
+}
+
+.twitch-loader > img {
+	height: 64px;
+	width: 64px;
+	vertical-align: middle;
+}
+
+.twitch-error{
+	text-align: center;
+	display: none;
 }

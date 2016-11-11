@@ -43,31 +43,35 @@ function showGames(){
 
 	defineScreen("All Games")
 
-	 $.ajax({
-	          url: 'https://api.twitch.tv/kraken/games/top?limit=' + default_limit +'&offset=0',
-	          type: 'GET',
-		  data: {
+	$.ajax({
+		url: 'https://api.twitch.tv/kraken/games/top?limit=100&offset=0',
+		type: 'GET',
+		data: {
 			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
-		  },
+		},
+		beforeSend: function(e, d) {
+			$("#twitch-loader").show();
+		},
+		error: function(e) {
+			$("#twitch-error").append("<h2>" + e.status + ": " + e.statusText + "</h2>");
+			$("#twitch-error").show();
+			$("#twitch-loader").hide();
+		},
+		contentType: 'application/json',
+		dataType: 'jsonp',
+		success: function(data) {
+			$.each(data.top, function(index, value){
+				game_id = value.game._id;
+				game_name = value.game.name;
+				game_image = value.game.box.medium;
+				game_viewers = value.viewers;
 
-		  error: function(e) {
-			$("#twitch-error").append(e.status + ": " + e.statusText);
-		  },
-	          contentType: 'application/json',
-	          dataType: 'jsonp',
-	          success: function(data) {
+				$("#twitch-widget-gamelist").append("<div class='game_item' name='" + game_name + "' id='" + game_id + "' tabindex='-1'><img src='" + game_image + "'><br><b>" + game_name + "</b><br/><div class='game_status'>" + game_viewers + " viewers</div></div>");
 
-	          	$.each(data.top, function(index, value){
-	          		game_id = value.game._id;
-	          		game_name = value.game.name;
-	          		game_image = value.game.box.medium;
-	          		game_viewers = value.viewers;
-
-	          		$("#twitch-widget-gamelist").append("<div class='game_item' name='" + game_name + "' id='" + game_id + "' tabindex='-1'><img src='" + game_image + "'><br><b>" + game_name + "</b><br/><div class='game_status'>" + game_viewers + " viewers</div></div>");
-
-	          	})
+			})
 			rcuNavigator.update();
-	          }
+			$("#twitch-loader").hide();
+		}
 	});
 
 }

@@ -110,14 +110,13 @@ function showStreamers(game){
 
 	defineScreen(game)
 
-	game = game.replace(/\s/g,"+");
-	game = game.replace(/\:/g,"%3A");
-
 	$.ajax({
-		url: 'https://api.twitch.tv/kraken/streams?game=' + game + '&limit=100',
+		url: 'https://api.twitch.tv/kraken/streams',
 		type: 'GET',
 		data: {
-			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
+			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj',
+			game: game,
+			limit: 100
 		},
 		beforeSend: function(e, d) {
 			$("#twitch-loader").show();
@@ -132,7 +131,12 @@ function showStreamers(game){
 		success: function(data) {
 
 			$.each(data.streams, function(index, value){
-				$("#twitch-widget-streamlist").append("<div class='stream_img' tabindex='-1'><a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a><br><b>" + value.channel.status + "</b><br/><div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div></div>");
+				var html = "<div class='stream_img' tabindex='-1'>";
+				html += "<a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a>";
+				html += "<div class='stream_title'>" + value.channel.status + "</div>";
+				html += "<div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div>";
+				html += "</div>";
+				$("#twitch-widget-streamlist").append(html);
 			});
 			rcuNavigator.update();
 			$("#twitch-loader").hide();

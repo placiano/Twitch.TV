@@ -155,13 +155,17 @@ input[type="search"] {
 	color: #6B6B6B;
 }
 
+.stream_title {
+	overflow: hidden;
+	font-size: 24px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .stream_img {
 	max-width: 320px;
-	height: 232px;
+	height: 238px;
 	float: left;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 
 	padding: 5px;
 	border: 5px solid #FFF;

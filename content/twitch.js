@@ -44,10 +44,12 @@ function showGames(){
 	defineScreen("All Games")
 
 	$.ajax({
-		url: 'https://api.twitch.tv/kraken/games/top?limit=100&offset=0',
+		url: 'https://api.twitch.tv/kraken/games/top',
 		type: 'GET',
 		data: {
-			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj'
+			client_id: '7zclzcxtiqcxfspf9ltnwztf8kvruwj',
+			limit: 100,
+			offset: 0
 		},
 		beforeSend: function(e, d) {
 			$("#twitch-loader").show();
@@ -61,12 +63,17 @@ function showGames(){
 		dataType: 'jsonp',
 		success: function(data) {
 			$.each(data.top, function(index, value){
-				game_id = value.game._id;
-				game_name = value.game.name;
-				game_image = value.game.box.medium;
-				game_viewers = value.viewers;
+				var game_id = value.game._id;
+				var game_name = value.game.name;
+				var game_image = value.game.box.medium;
+				var game_viewers = value.viewers;
+				var html = "<div class='game_item' name='" + game_name + "' id='" + game_id + "' tabindex='-1'>";
+				html += "<img src='" + game_image + "'>";
+				html += "<div class='stream_title'>" + game_name + "</div>";
+				html += "<div class='game_status'>" + game_viewers + " viewers</div>";
+				html += "</div>";
 
-				$("#twitch-widget-gamelist").append("<div class='game_item' name='" + game_name + "' id='" + game_id + "' tabindex='-1'><img src='" + game_image + "'><br><b>" + game_name + "</b><br/><div class='game_status'>" + game_viewers + " viewers</div></div>");
+				$("#twitch-widget-gamelist").append(html);
 
 			})
 			rcuNavigator.update();

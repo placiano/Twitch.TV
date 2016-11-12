@@ -124,11 +124,8 @@ input[type="search"] {
 
 .game_item {
 	max-width: 136px;
-	height: 238px;
+	height: 248px;
 	float: left;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 
 	padding: 5px;
 	border: 5px solid #FFF;
@@ -166,7 +163,6 @@ input[type="search"] {
 	max-width: 320px;
 	height: 238px;
 	float: left;
-
 	padding: 5px;
 	border: 5px solid #FFF;
 }

@@ -158,11 +158,16 @@ input[type="search"] {
 }
 
 .stream_img {
-	max-width: 320px;
-	height: 238px;
+	max-width: 384px;
+	height: 278px;
 	float: left;
 	padding: 5px;
 	border: 5px solid #FFF;
+}
+
+.stream_img > a > img {
+	max-width: 100%;
+	height: auto;
 }
 
 .stream_img:hover {

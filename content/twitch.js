@@ -139,7 +139,7 @@ function showStreamers(game){
 
 			$.each(data.streams, function(index, value){
 				var html = "<div class='stream_img' tabindex='-1'>";
-				html += "<a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.medium + "'></a>";
+				html += "<a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.large + "'></a>";
 				html += "<div class='stream_title'>" + value.channel.status + "</div>";
 				html += "<div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div>";
 				html += "</div>";

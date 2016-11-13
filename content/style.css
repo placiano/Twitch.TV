@@ -123,8 +123,8 @@ input[type="search"] {
 }
 
 .game_item {
-	max-width: 136px;
-	height: 248px;
+	width: 210px;
+	height: 355px;
 	float: left;
 
 	padding: 5px;
@@ -132,10 +132,8 @@ input[type="search"] {
 }
 
 .game_item > img {
-	//max-width: 136px;
-	//max-height: 180px;
-	//width: auto;
-	//height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 .game_item:hover {

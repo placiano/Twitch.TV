@@ -65,7 +65,7 @@ function showGames(){
 			$.each(data.top, function(index, value){
 				var game_id = value.game._id;
 				var game_name = value.game.name;
-				var game_image = value.game.box.medium;
+				var game_image = value.game.box.large;
 				var game_viewers = value.viewers;
 				var html = "<div class='game_item' name='" + game_name + "' id='" + game_id + "' tabindex='-1'>";
 				html += "<img src='" + game_image + "'>";

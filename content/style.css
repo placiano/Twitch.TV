@@ -53,10 +53,6 @@ a:visited {
 	width: 60%;
 }
 
-.left_panel_menu {
-	/*margin: 25px 25px 0 25px;*/
-}
-
 .left_panel_menu .title {
 	margin: 25px 25px 0 35px;
 	font-size: 16px;
@@ -90,7 +86,12 @@ a:visited {
 	float: left;
 	margin-left: 25px;
 	width: 50%;
-	color: #fff
+	color: #fff;
+}
+
+#twitch-loader {
+	text-align: center;
+	display: none;
 }
 
 input[type="search"] {
@@ -151,7 +152,6 @@ input[type="search"] {
 }
 
 .stream_img:hover, .stream_img:focus {
-	//border: 5px solid #32323e;
 	background: #fff;
 	color: #000;
 }
@@ -167,45 +167,19 @@ input[type="search"] {
 	float: left;
 }
 
-.left_panel_chat{
-	float: right;
-	width: 250px;
-	height: 800px;
-}
-
-.back{
+.back {
 	position: absolute;
 	top: 10px;
 	left: 10px;
 }
 
-.back img{
+.back img {
 	width: 36px;
 	height: 36px;
-}
-
-.hide_chat{
-	position: absolute;
-	top: 10px;
-	right: 10px;
-}
-
-.hide_chat img{
-	width: 32px;
-	height: 32px;
-}
-
-#img_hide{
-	width: 32px;
-	height: 32px;
-}
-
-.twitch-loader {
-	text-align: center;
-	display: none;
 }
 
 .twitch-error{
 	text-align: center;
 	display: none;
+	color: #fff;
 }

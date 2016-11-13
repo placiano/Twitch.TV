@@ -1,5 +1,3 @@
-var default_limit = 100;
-
 function defineScreen($title){
 
 	$("#game-list-header").text($title);
@@ -7,7 +5,6 @@ function defineScreen($title){
 	$("#twitch-widget-streamlist").empty();
 	$("#search").val("");
 }
-
 
 function searchChannel(search) {
 

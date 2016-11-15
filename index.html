@@ -17,6 +17,9 @@
 		showGames();
 	});
 
+	$(document).on("mousemove", function(e) {
+		rcuNavigator.unfocus();
+	});
 	$(document).on("keydown", function(e) {
 		var need_default_handler = false;
 

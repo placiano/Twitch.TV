@@ -158,5 +158,10 @@ var rcuNavigator = {
 			item_in_charge = this.items[--this.in_charge_idx];
 
 		item_in_charge.focus();
+	},
+	unfocus: function() {
+		if (this.in_charge_idx < 0)
+			return;
+		$(":focus").blur();
 	}
 }

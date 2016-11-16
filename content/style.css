@@ -172,14 +172,10 @@ input[type="search"] {
 }
 
 /*
-*	STREAM SIDE
+*	STREAM
 */
-.left_panel_stream {
-	background: #32323e;
+.stream_frame {
 	height: 100vh;
-	width: 100%;
-	color: #fff;
-	float: left;
 }
 
 .back {

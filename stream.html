@@ -8,50 +8,40 @@
 <script src="webOSjs-0.1.0/webOS.js" charset="utf-8"></script>
 
 <script>
-	
 	// Format code from http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
 	if (!String.prototype.format) {
 	  String.prototype.format = function() {
 		var args = arguments;
-		return this.replace(/{(\d+)}/g, function(match, number) { 
-		  return typeof args[number] != 'undefined'
+		return this.replace(/{(\d+)}/g, function(match, number) {
+		return typeof args[number] != 'undefined'
 			? args[number]
-			: match
-		  ;
+			: match;
 		});
-	  };
+	};
 	}
 	
-	(function ($) {		
+	(function ($) {
 		$(document).ready( function () 
 		{
-		var nameHash = location.hash;		
+		var nameHash = location.hash;
 		nameHash = nameHash.replace(/\#/g,"");
 		document.getElementById('videoFrame').src = "http://player.twitch.tv/?channel={0}&html5=1".format(nameHash);
 		});
 	})(jQuery);
-	</script>	
+	</script>
 	
 </head>
 <body>
-	<div class="left_panel_stream">
-	
+	<div class="stream_frame">
 		<div class="back">
 			<a href="index.html">
 				<img src="content/back.png"/>
 			</a>
 		</div>
-	    <iframe 
-		frameborder="0" 
-		id="videoFrame" 		
-		width="100%" 
-		height="100%">
-		</iframe> 
+		<iframe frameborder="0"
+			id="videoFrame"
+			width="100%"
+			height="100%" />
 	</div>
-	
-	<div class="left_panel_chat">
-		</iframe>
-	</div>
-	
 </body>
 </html>

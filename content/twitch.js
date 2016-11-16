@@ -64,10 +64,10 @@ function showGames(){
 				var game_name = value.game.name;
 				var game_image = value.game.box.large;
 				var game_viewers = value.viewers;
-				var html = "<div class='game_item' name='" + game_name + "' id='" + game_id + "' tabindex='-1'>";
+				var html = "<div class='game_box' name='" + game_name + "' id='" + game_id + "' tabindex='-1'>";
 				html += "<img src='" + game_image + "'>";
-				html += "<div class='stream_title'>" + game_name + "</div>";
-				html += "<div class='game_status'>" + game_viewers + " viewers</div>";
+				html += "<div class='game_title'>" + game_name + "</div>";
+				html += "<div class='game_viewers'>" + game_viewers + " viewers</div>";
 				html += "</div>";
 
 				$("#twitch-widget-gamelist").append(html);
@@ -135,10 +135,10 @@ function showStreamers(game){
 		success: function(data) {
 
 			$.each(data.streams, function(index, value){
-				var html = "<div class='stream_img' tabindex='-1'>";
+				var html = "<div class='stream_box' tabindex='-1'>";
 				html += "<a href='#' name='" + value.channel.name + "' id='" + value._id + "'><img src='" + value.preview.large + "'></a>";
 				html += "<div class='stream_title'>" + value.channel.status + "</div>";
-				html += "<div class='game_status'>" + value.viewers + " viewers on " + value.channel.display_name + "</div>";
+				html += "<div class='stream_viewers'>" + value.viewers + " viewers on " + value.channel.display_name + "</div>";
 				html += "</div>";
 				$("#twitch-widget-streamlist").append(html);
 			});

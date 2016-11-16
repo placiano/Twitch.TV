@@ -108,7 +108,9 @@ input[type="search"] {
 /*
 *	RIGHT SIDE
 */
-.game_item {
+
+/*	GAME BOX */
+.game_box {
 	width: 210px;
 	height: 355px;
 	float: left;
@@ -116,19 +118,40 @@ input[type="search"] {
 	color: #fff
 }
 
-.game_item > img {
+.game_box img {
 	max-width: 100%;
 	height: auto;
 }
 
-.game_item:hover, .game_item:focus {
+.game_title {
+	overflow: hidden;
+	font-size: 24px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.game_viewers {
+	font-size: 14px;
+	color: #6B6B6B;
+}
+
+.game_box:hover, .game_box:focus {
 	color: #000;
 	background: #fff;
 }
 
-.game_status {
-	font-size: 14px;
-	color: #6B6B6B;
+/*	STREAM PREVIEW */
+.stream_box {
+	max-width: 384px;
+	height: 278px;
+	float: left;
+	padding: 10px;
+	color: #fff;
+}
+
+.stream_box img {
+	max-width: 100%;
+	height: auto;
 }
 
 .stream_title {
@@ -138,20 +161,12 @@ input[type="search"] {
 	white-space: nowrap;
 }
 
-.stream_img {
-	max-width: 384px;
-	height: 278px;
-	float: left;
-	padding: 10px;
-	color: #fff;
+.stream_viewers {
+	font-size: 14px;
+	color: #6B6B6B;
 }
 
-.stream_img img {
-	max-width: 100%;
-	height: auto;
-}
-
-.stream_img:hover, .stream_img:focus {
+.stream_box:hover, .stream_box:focus {
 	background: #fff;
 	color: #000;
 }

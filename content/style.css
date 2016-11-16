@@ -71,12 +71,7 @@ a:visited {
 	border-left: 6px solid #32323e;
 }
 
-.left_panel_menu_list a:hover {
-	background: #101014;
-	border-left: 6px solid #6441a5;
-}
-
-.left_panel_menu_list a:focus {
+.left_panel_menu_list a:hover, a:focus {
 	background: #101014;
 	border-left: 6px solid #6441a5;
 	outline: none;
@@ -176,6 +171,7 @@ input[type="search"] {
 */
 .stream_frame {
 	height: 100vh;
+	background: #32323e;
 }
 
 .back {

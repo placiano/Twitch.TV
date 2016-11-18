@@ -1,41 +1,22 @@
-# Welcome to Twitch.TV!
-I started the project, when i got a LG WebOS TV.
-
-I wanted to watch stream on the TV, i had to connect it to my pc, and see the stream that way though.
-
-I did that a few times, until it started to piss me off, so i started to look into, how to make my own Twitch.TV app, for the WebOS. It turned out it wasn't that complicated, so i stat down, and started the project.
+# Twitch.TV application for LG Smart TV
+I took original program written by PatrickRorth and added what I needed.
 
 ## Installation instructions
-If you want to try out the app for your self, you can just follow these steps.
+Note that you can not install application on Smart TV using USB flash drive.
+Use ![LG Instructions](https://developer.lge.com/webOSTV/develop/web-app/app-test/) 
+to install the application until it is not available in LG App Store.
 
-* Download latest zip from [Dropbox](https://www.dropbox.com/s/7np16b29jye3lfk/TwitchTV.zip?dl=0). (V.0.4)
-* Unzip it to the root of your usb flash drive.
-* Attach your flash drive to the tv.
-* Find app in the smart menu.
+## What's new
++ UTF-8 support.
++ Keyboard and Remote Control Unit navigation support.
++ Dark background.
 
-## Chat Support
-[Gitter Chat](https://gitter.im/PatrickRorth/Twitch.TV)
+## Known Issues
++ You can not interact stream iframe with RCU (i.e. to pass Mature Content Alert)
 
 ## Images
-![TV Menu](http://i.imgur.com/y6IabsX.jpg)
-![App menu](http://i.imgur.com/osbAh3E.jpg)
-
-
-#### Updates
-###### Update 0.6
-Added:
-+ Channel Search
-+ UI Improvements
- + Page Scroll
- + Game / Stream selector 
- + Menu redesign
- + bug fixes
-
-Removed:
-
-#### ToDo
-+ Remote control operated
-+ Stream chat
+![Unicode Symbols](http://i.imgur.com/4PbqpEx.png)
+![Games](http://i.imgur.com/cS1RazF.png)
 
 ## License  
 MIT License

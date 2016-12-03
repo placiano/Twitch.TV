@@ -1,9 +1,9 @@
 # Twitch.TV application for LG Smart TV
-I took original program written by PatrickRorth and added what I needed.
+I took original program written by PatrickRorth and extended it to fit my needs.
 
 ## Installation instructions
 Note that you can not install application on Smart TV using USB flash drive.
-Use ![LG Instructions](https://developer.lge.com/webOSTV/develop/web-app/app-test/) 
+Read ![App Testing on webOS TV](https://developer.lge.com/webOSTV/develop/web-app/app-test/) 
 to install the application until it is not available in LG App Store.
 
 ## What's new

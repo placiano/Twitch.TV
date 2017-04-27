@@ -1,0 +1,86 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script src="twitch.js"></script>
+	<script>
+
+	var links = {
+		self: "https://api.twitch.tv/kraken/streams?offset=0&limit=10",
+		next: "https://api.twitch.tv/kraken/streams?offset=10&limit=10"
+	};
+
+	$(window).scroll(function ()
+	{
+		if ($(window).height() + $(window).scrollTop() < $(document).height())
+			return;
+
+		dload(links.next, populate_container_to_eyeballs);
+	});
+
+	$(document).ready(function() 
+	{
+		dload(links.self, populate_container_to_eyeballs);
+	});
+
+	function populate_container_to_eyeballs(data)
+	{
+		var body = $(".container");
+		links = data._links;
+		$.each(data.streams, function(index, value){
+			var ch_name = value.channel.name;
+			var ch_preview = value.preview.large;
+			var ch_title = value.channel.status;
+			var ch_viewers = value.viewers;
+			var div = toStreamBox(ch_name, ch_preview, ch_title, ch_viewers);
+			body.append(div);
+		})
+
+		if ($(window).height() >= $(document).height())
+			dload(links.next, populate_container_to_eyeballs);
+	}
+
+	function toStreamBox(ch_name, ch_preview, ch_title, ch_viewers) {
+		var v = "";
+		v+= "<div class='streambox'>"
+		v+=	"<a href='play.html#" + ch_name + "'>"
+		v+=	"	<img src='" + ch_preview + "' />"
+		v+=	"</a>"
+		v+=	"<div class='streamtitle'>" + ch_title	+ "</div>"
+		v+=	"<div>" + ch_viewers	+ " on " + ch_name + "</div>"
+		v+= "</div>"
+		
+		return v;
+	}
+
+	</script>
+	<style>
+	.container {
+		#max-width: 1200px;
+		display:          block;
+		margin:           auto;
+		text-align:       center;
+	}
+
+	.streambox {
+		width:            640px;
+		text-align:       left;
+		display:          inline-block;
+		padding:          10px;
+	}
+
+	.streamtitle {
+		overflow:         hidden;
+		text-overflow:    ellipsis;
+		white-space:      nowrap;
+		font-size:        1.5em;
+	}
+
+	</style>
+</head>
+
+<body>
+	<div class="container"></div>​
+</body>
+</html>
+

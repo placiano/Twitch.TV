@@ -10,34 +10,40 @@
 		next: "https://api.twitch.tv/kraken/streams?offset=10&limit=10"
 	};
 
+	var fullheight;
+
 	$(window).scroll(function ()
 	{
 		if ($(window).height() + $(window).scrollTop() < $(document).height())
 			return;
 
-		dload(links.next, populate_container_to_eyeballs);
+		dload(links.next, populate_container);
 	});
 
 	$(document).ready(function() 
 	{
-		dload(links.self, populate_container_to_eyeballs);
+		fullheight = true;
+		dload(links.self, populate_container);
 	});
 
-	function populate_container_to_eyeballs(data)
+	function populate_container(data)
 	{
 		var body = $(".container");
 		links = data._links;
 		$.each(data.streams, function(index, value){
 			var ch_name = value.channel.name;
-			var ch_preview = value.preview.large;
+			var ch_preview = value.preview.medium;
 			var ch_title = value.channel.status;
 			var ch_viewers = value.viewers;
 			var div = toStreamBox(ch_name, ch_preview, ch_title, ch_viewers);
 			body.append(div);
 		})
 
-		if ($(window).height() >= $(document).height())
-			dload(links.next, populate_container_to_eyeballs);
+		if (fullheight)
+			if ($(window).height() >= $(document).height())
+				dload(links.next, populate_container);
+			else
+				fullheight = false;
 	}
 
 	function toStreamBox(ch_name, ch_preview, ch_title, ch_viewers) {
@@ -46,8 +52,10 @@
 		v+=	"<a href='play.html#" + ch_name + "'>"
 		v+=	"	<img src='" + ch_preview + "' />"
 		v+=	"</a>"
+		v+=	"<div>"
 		v+=	"<div class='streamtitle'>" + ch_title	+ "</div>"
 		v+=	"<div>" + ch_viewers	+ " on " + ch_name + "</div>"
+		v+=	"</div>"
 		v+= "</div>"
 		
 		return v;
@@ -56,24 +64,28 @@
 	</script>
 	<style>
 	.container {
-		#max-width: 1200px;
 		display:          block;
 		margin:           auto;
 		text-align:       center;
 	}
 
 	.streambox {
-		width:            640px;
+		width:            320px;
 		text-align:       left;
 		display:          inline-block;
-		padding:          10px;
+		margin:           10px;
+		box-shadow:       0 0 5px rgba(0,0,0,0.5);
+	}
+
+	.streambox > div {
+		margin:           10px;
 	}
 
 	.streamtitle {
 		overflow:         hidden;
 		text-overflow:    ellipsis;
 		white-space:      nowrap;
-		font-size:        1.5em;
+		font-size:        22px;
 	}
 
 	</style>

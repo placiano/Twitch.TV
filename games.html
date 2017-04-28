@@ -87,7 +87,7 @@
 	function toGameBox(game_name, game_image, game_viewers, game_channels)
 	{
 		var v = "";
-		v+= "<div class='gamebox'>"
+		v+= "<div class='gamebox' tabindex=-1>"
 		v+=	"<a href='streams.html?game=" + rfc3986Encode(game_name) + "'>"
 		v+=	"	<img src='" + game_image + "' />"
 		v+=	"</a>"
@@ -166,12 +166,12 @@
 		font-size:        24px;
 	}
 
-	.menu ul li > a:hover, .menu ul li a > :focus {
+	.menu ul li > a:hover, .menu ul li > a:focus {
 		background:       #fff;
 		color:            #000;
 	}
 
-	.container > div:hover, .container > div:focus {
+	.gamebox:hover, .gamebox:focus {
 		background:       #000;
 		color:            #fff;
 	}

@@ -22,7 +22,7 @@ var rcuMenuItems = {
 			if (this.idx < this.count - 1)
 				this.idx++;
 			break;
-		case "bottom":
+		case "down":
 			/* A value that means that focus moved
 			* to the bottom. */
 			return -1;

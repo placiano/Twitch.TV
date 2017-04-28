@@ -4,6 +4,7 @@
 	<!-- v1.4.3 has a working $(window).scrollTop() -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 	<script src="twitch.js"></script>
+	<script src="rcunav.js" charset="utf-8"></script>
 	<script>
 
 	var links = {
@@ -37,6 +38,30 @@
 		dload(links.self, populate_container);
 	});
 
+	$(document).keydown(function(e) {
+		var need_default_handler = false;
+
+		switch(e.keyCode) {
+		case 39:
+			rcuNavigator.navigate("right");
+			break;
+		case 37:
+			rcuNavigator.navigate("left");
+			break;
+		case 40:
+			rcuNavigator.navigate("down");
+			break;
+		case 38:
+			rcuNavigator.navigate("up");
+			break;
+		case 13:
+		default:
+			need_default_handler = true;
+			break;
+		}
+		return need_default_handler;
+	});
+
 	function populate_container(data)
 	{
 		var body = $(".container");
@@ -55,6 +80,8 @@
 				dload(links.next, populate_container);
 			else
 				fullheight = false;
+
+		rcuNavigator.update();
 	}
 
 	function toGameBox(game_name, game_image, game_viewers, game_channels)
@@ -106,66 +133,47 @@
 		overflow:         hidden;
 		text-overflow:    ellipsis;
 		white-space:      nowrap;
-		font-size: 24px;
-	}
-
-	.gameviewers {
-		#padding-left:    10px;
-	}
-
-	.menu {
-		width: 100%;
-		background: #000;
-	}
-
-	.tablist {
-		list-style: none;
-		height: 41px;
-		padding: 0;
-		margin: 5px 0 0 0;
-		border: none;
-	}
-
-	.tablist li {
-		float: left;
-		margin-right: 0px;
-	}
-
-	.tablist li > a {
-		display: block;
-		padding: 8px 10px 0 10px;
-		text-decoration: none;
-		color: #ffa500;
-		//background-color: #303030;
-		font-size: 24px;
-		font-weight: normal;
-		text-shadow: 2px 2px 4px black;
-		position: relative;
-		white-space: nowrap;
-		height: 32px;
-	}
-
-	.menu {
-		background:       #32323e;
-		color:            #fff;
-		display:          block;
-		margin:           auto;
-		text-align:       center;
-	}
-
-	.menu a {
-		color: #fff;
-		text-decoration: none;
-	}
-
-	.menu a:visited {
-		color: none;
-		text-decoration: none;
+		font-size:        24px;
 	}
 
 	.main {
 		margin:           auto;
 		text-align:       center;
+	}
+
+	.menu {
+
+		width:            100%;
+		height:           56px;
+		background:       #000;
+		box-shadow:       0px 0px 10px rgba(0, 0, 0, 0.5);
+	}
+
+	.menu ul {
+		list-style:       none;
+	}
+
+	.menu ul li {
+		float:            left;
+		height:           100%;
+		padding:          0px 10px 0px 10px;
+		line-height:      56px;
+	}
+
+	.menu ul li > a {
+		text-decoration:  none;
+		color:            #ffa500;
+		font-size:        24px;
+	}
+
+	.menu ul li > a:hover, .menu ul li a > :focus {
+		background:       #fff;
+		color:            #000;
+	}
+
+	.container > div:hover, .container > div:focus {
+		background:       #000;
+		color:            #fff;
 	}
 	</style>
 </head>
@@ -173,11 +181,10 @@
 <body>
 	<div class="main">
 		<div class="menu">
-			<ul class="tablist">
-				<li><a href="games.html"><img src="largeIcon.png" style="height: 24px;"> Games</a>
-				</li>
+			<ul>
+				<li><img src="largeIcon.png" style="height: 100%; width: auto;"></li>
+				<li><a href="games.html">Games</a></li>
 				<li><a href="streams.html">Streams</a></li>
-				<li><a href="play.html">Play</a></li>
 			</ul>
 		</div>
 		<div class="container"></div>

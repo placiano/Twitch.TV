@@ -88,11 +88,48 @@
 		font-size:        22px;
 	}
 
+	.main {
+		margin:           auto;
+		text-align:       center;
+	}
+
+	.menu {
+		width:            100%;
+		height:           56px;
+		background:       #000;
+		box-shadow:       0 0 10px rgba(0, 0, 0, 0.5);
+	}
+
+	.menu ul {
+		list-style:       none;
+	}
+
+	.menu ul li {
+		float:            left;
+		height:           100%;
+		padding:          0px 10px 0px 10px;
+		line-height:      56px;
+	}
+
+	.menu ul li > a {
+		text-decoration:  none;
+		color:            #ffa500;
+		font-size:        24px;
+	}
 	</style>
 </head>
 
 <body>
-	<div class="container"></div>​
+	<div class="main">
+		<div class="menu">
+			<ul>
+				<li><img src="largeIcon.png" style="height: 100%; width: auto;"></li>
+				<li><a href="games.html">Games</a></li>
+				<li><a href="streams.html">Streams</a></li>
+			</ul>
+		</div>
+		<div class="container"></div>​
+	</div>​
 </body>
 </html>
 

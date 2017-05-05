@@ -39,8 +39,6 @@
 	});
 
 	$(document).keydown(function(e) {
-		var need_default_handler = false;
-
 		switch(e.keyCode) {
 		case 39:
 			rcuNavigator.navigate("right");
@@ -56,10 +54,8 @@
 			break;
 		case 13:
 		default:
-			need_default_handler = true;
 			break;
 		}
-		return need_default_handler;
 	});
 
 	function populate_container(data)

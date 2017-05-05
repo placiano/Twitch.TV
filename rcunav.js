@@ -95,14 +95,14 @@ var rcuGameItems = {
 			/* I do not want to jump to previous row. */
 			if (!leftmost)
 				this.idx--;
-			else
-				/* A value that means that focus moved
-				* to the left. */
-				return -2;
 			break;
 		case "up":
 			if ((this.idx - this.nr_items_in_row) >= 0)
 				this.idx = this.idx - this.nr_items_in_row;
+			else
+				/* A value that means that focus moved
+				* to the top. */
+				return -2;
 			break;
 		case "down":
 			if ((this.idx + this.nr_items_in_row) < this.count)

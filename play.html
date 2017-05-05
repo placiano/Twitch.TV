@@ -1,46 +1,18 @@
-<!DOCTYPE html>
 <html>
 <head>
-
-<link href="content/style.css" media="screen" rel="stylesheet" type="text/css">
-
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-<script>
-	// Format code from http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
-	if (!String.prototype.format) {
-	  String.prototype.format = function() {
-		var args = arguments;
-		return this.replace(/{(\d+)}/g, function(match, number) {
-		return typeof args[number] != 'undefined'
-			? args[number]
-			: match;
-		});
-	};
-	}
-	
-	(function ($) {
-		$(document).ready( function () 
-		{
-		var nameHash = location.hash;
-		nameHash = nameHash.replace(/\#/g,"");
-		document.getElementById('videoFrame').src = "http://player.twitch.tv/?channel={0}&html5=1".format(nameHash);
-		});
-	})(jQuery);
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("#videoFrame").attr("src",
+			"http://player.twitch.tv/?html5=true&channel=" +
+			location.hash.replace(/\#/g,""));
+	});
 	</script>
-	
 </head>
-<body>
-	<div class="stream_frame">
-		<div class="back">
-			<a href="javascript: window.history.go(-1)">
-				<img src="content/back.png"/>
-			</a>
-		</div>
-		<iframe frameborder="0"
-			id="videoFrame"
-			width="100%"
-			height="100%" />
-	</div>
+<body style="margin: 0px">
+	<iframe frameborder="0"
+		id="videoFrame"
+		style="height: 100vh; width: 100%; background: #000" />
 </body>
 </html>

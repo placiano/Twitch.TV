@@ -38,7 +38,8 @@
 		dload(links.self, populate_container);
 	});
 
-	$(document).keydown(function(e) {
+	function keydown_handler(e)
+	{
 		switch(e.keyCode) {
 		case 39:
 			rcuNavigator.navigate("right");
@@ -56,7 +57,9 @@
 		default:
 			break;
 		}
-	});
+	}
+
+	$(document).keydown(keydown_handler);
 
 	function populate_container(data)
 	{
@@ -132,11 +135,6 @@
 		font-size:        24px;
 	}
 
-	.main {
-		margin:           auto;
-		text-align:       center;
-	}
-
 	.menu {
 
 		width:            100%;
@@ -173,17 +171,13 @@
 	}
 	</style>
 </head>
-
 <body>
-	<div class="main">
-		<div class="menu">
-			<ul>
-				<li><img src="largeIcon.png" style="height: 100%; width: auto;"></li>
-				<li><a href="games.html">Games</a></li>
-				<li><a href="streams.html">Streams</a></li>
-			</ul>
-		</div>
-		<div class="container"></div>
+	<div class="menu">
+		<ul>
+			<li><a href="games.html">Games</a></li>
+			<li><a href="streams.html">Streams</a></li>
+		</ul>
 	</div>
+	<div class="container"></div>
 </body>
 </html>
